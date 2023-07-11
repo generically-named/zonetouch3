@@ -1,9 +1,0 @@
-{
-    "domain": "zone_controller",
-    "name": "Zone Controller",
-    "documentation": "https://github.com/generically-named/zonetouch3",
-    "dependencies": [],
-    "codeowners": ["generically-named"],
-    "requirements": []
-  }
-  

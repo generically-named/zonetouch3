@@ -1,0 +1,2506 @@
+[
+    {
+        "id": "94a7559abc579a34",
+        "type": "tab",
+        "label": "ZoneTouch 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bffeee23cd53426b",
+        "type": "ha-switch",
+        "z": "94a7559abc579a34",
+        "name": "Zone 0 HA Switch",
+        "version": 0,
+        "debugenabled": false,
+        "inputs": 1,
+        "outputs": 2,
+        "entityConfig": "27b93de39610f5e5",
+        "enableInput": true,
+        "outputOnStateChange": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "switch",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 320,
+        "wires": [
+            [
+                "a32997609d5fd8bc"
+            ],
+            [
+                "a32997609d5fd8bc"
+            ]
+        ]
+    },
+    {
+        "id": "ef4227872bc786b0",
+        "type": "ha-number",
+        "z": "94a7559abc579a34",
+        "name": "Zone 0 Percentage",
+        "version": 1,
+        "debugenabled": false,
+        "inputs": 0,
+        "outputs": 1,
+        "entityConfig": "18936c1984238994",
+        "mode": "listen",
+        "value": "payload",
+        "valueType": "msg",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "value"
+            },
+            {
+                "property": "previousValue",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "previousValue"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "b6915f5b9b477420"
+            ]
+        ]
+    },
+    {
+        "id": "1a9a5781d9c32097",
+        "type": "ha-binary-sensor",
+        "z": "94a7559abc579a34",
+        "name": "Zone 1 Spill",
+        "entityConfig": "0a46435e48025767",
+        "version": 0,
+        "state": "spill",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1790,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "afcd50258ee1f7f1",
+        "type": "ha-binary-sensor",
+        "z": "94a7559abc579a34",
+        "name": "Zone 2 Spill",
+        "entityConfig": "a45a725dcfa8fe60",
+        "version": 0,
+        "state": "spill",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1790,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b0c26d171009d75e",
+        "type": "ha-binary-sensor",
+        "z": "94a7559abc579a34",
+        "name": "Zone 3 Spill",
+        "entityConfig": "5ab38b376a1e50b7",
+        "version": 0,
+        "state": "spill",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1790,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "80a0da238e093dc0",
+        "type": "ha-binary-sensor",
+        "z": "94a7559abc579a34",
+        "name": "Zone 4 Spill",
+        "entityConfig": "5f2561fc16c9eecd",
+        "version": 0,
+        "state": "spill",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1790,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "85498204ce642487",
+        "type": "ha-binary-sensor",
+        "z": "94a7559abc579a34",
+        "name": "Zone 5 Spill",
+        "entityConfig": "3ca66b1b7747630c",
+        "version": 0,
+        "state": "spill",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1790,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f975b4c5367c6cff",
+        "type": "ha-binary-sensor",
+        "z": "94a7559abc579a34",
+        "name": "Zone 6 Spill",
+        "entityConfig": "94304166eb021eb8",
+        "version": 0,
+        "state": "spill",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1790,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "88cef9ababcf5a20",
+        "type": "function",
+        "z": "94a7559abc579a34",
+        "name": "Group Status Responses",
+        "func": "// Only process Group Status responses.\nif ( msg.payload[10] === 33) {\n    // Get the status for each zone.\n    // Bit 8-7 = State. 00 = Off, 01 = On, 11 = Turbo\n    // Bit 6-1 = Group Number\n    for (var i = 0; i < msg.zone_count; i++) {\n        var byte = 18 + (i * 8);\n        \n        \n        \n        // Set number.zone_X to the retrieved value.\n        var zone_entity = \"zone_\" + ( i );\n        var zone_status = (msg.payload[byte] - i) === 64;\n        var percent = msg.payload[byte + 1];\n        var spill = (msg.payload[byte + 6].toString(16).padStart(2, '0').substring(1,2)) === \"4\";\n        \n        /* zone_status == 0 means OFF\n        if ( zone_status == 0 ) {\n            percent = 0\n        }\n        Edit: I am retaining the percentage as I will conditionally hide percentages in the HA frontend. \n            My preference is for percentage value to persist an switches control on and off to replicate the function of the app/controller exactly.\n        */\n        // Create a new message to pass to the set-value service.\n        var NewMsg = {};\n        NewMsg.entity_id_number = \"number.\" + zone_entity;\n        NewMsg.entity_id_switch = \"switch.\" + zone_entity;\n        NewMsg.zoneNumber = i;\n        NewMsg.spill = spill;\n        NewMsg.enable = zone_status; //added to account for switches\n        NewMsg.payload = percent;\n        NewMsg.updateTime = Date.now();\n        node.send(NewMsg);\n    }\n} \nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1410,
+        "y": 560,
+        "wires": [
+            [
+                "e2cc3e4035eb82b7",
+                "ed550499e4f0e43c",
+                "492ae41017ba725d",
+                "73b0c0fbb1fa62b3"
+            ]
+        ]
+    },
+    {
+        "id": "a5d919fe61d8b489",
+        "type": "tcp request",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "server": "127.0.0.1",
+        "port": "7030",
+        "out": "sit",
+        "ret": "buffer",
+        "splitc": " ",
+        "newline": "",
+        "trim": false,
+        "tls": "",
+        "x": 1140,
+        "y": 560,
+        "wires": [
+            [
+                "88cef9ababcf5a20",
+                "83d0e26c3ea4b1af",
+                "e525b874762039dd"
+            ]
+        ]
+    },
+    {
+        "id": "b50296fcf37fb3d1",
+        "type": "function",
+        "z": "94a7559abc579a34",
+        "name": "Assemble control message",
+        "func": "// We send two packets in the ON case. An ON and a percentage.\n// On the OFF case, we just send one.\nvar states = [];\nvar outputMsgs = [];\n\nif ( msg.payload == \"off\") {\n    states.push(0x02);\n    msg.percentage = 0x00;\n} else if ( msg.payload == \"on\" ) {\n    states.push(0x03);\n    msg.percentage = 0x00;\n} else {\n    if ( msg.previous == 0 ) {\n        states.push(0x03);\n    }\n    states.push(0x80);\n    msg.percentage = msg.payload;\n}\n\n\n\nfor ( var state in states ) {\n    var Header = [0x55, 0x55, 0x55, 0xAA]; //This is standard, do not modify\n    var SetZone = [\n        0x80, 0xB0,       // Address\n        0x12,             // ID\n        0xC0,             // Type\n        0x00, 0x0C,       // Length\n        0x20, 0x00,       // Sub Type\n        0x00, 0x00,       // Common Data Length\n        0x00, 0x04,       // Repeat Data Count\n        0x00, 0x01,       // Repeat Data Length\n        msg.zone,         // Zone (starts at 0x00 - supply in msg.zone)\n        states[state],    // State - 0x03 = on, 0x02 = off, 0x80 = percentage\n        msg.percentage,\n        0x00\n    ];\n\n    // Work out the CRC\n    var decimal = crc16Modbus((SetZone));\n    var hexString = decimal.toString(16);\n    var fullMessage = Header.concat(SetZone);\n    var crcFirstByte = hexString.substring(0, 2);\n    var crcSecondByte = hexString.substring(2, 4);\n\n    fullMessage = fullMessage.concat(parseInt(crcFirstByte, 16)).concat(parseInt(crcSecondByte,16));\n\n    var fullMessage = Header.concat(SetZone).concat(parseInt(crcFirstByte, 16)).concat(parseInt(crcSecondByte, 16));\n    var dataBuffer = Buffer.from(fullMessage);\n    var newMsg = {};\n    newMsg.payload = dataBuffer;\n    node.send(newMsg);\n}\nreturn null;\n\nfunction crc16Modbus(dataHex) {\n    function calcCRC16(data, poly = 0xA001) {\n        let crc = 0xFFFF;\n        for (let i = 0; i < data.length; i++) {\n            crc ^= data[i];\n            for (let j = 0; j < 8; j++) {\n                if (crc & 0x0001) {\n                    crc = (crc >> 1) ^ poly;\n                } else {\n                    crc >>= 1;\n                }\n            }\n        }\n        return crc;\n    }\n\n    // Convert hex string to byte array\n    let dataBytes = Buffer.from(dataHex, 'hex');\n\n    // Calculate CRC16 checksum\n    let crc = calcCRC16(dataBytes);\n    \n    //Return the hex value\n    return crc;\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 560,
+        "wires": [
+            [
+                "a5d919fe61d8b489"
+            ]
+        ]
+    },
+    {
+        "id": "a32997609d5fd8bc",
+        "type": "change",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "on",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 320,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "f314a3ff584c80b4",
+        "type": "api-call-service",
+        "z": "94a7559abc579a34",
+        "name": "Turn on switches",
+        "server": "4e161a78ecbd3dda",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "switch",
+        "service": "turn_on",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "{{ entity_id_switch }}"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1810,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed550499e4f0e43c",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "enable",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1630,
+        "y": 620,
+        "wires": [
+            [
+                "f314a3ff584c80b4"
+            ],
+            [
+                "153dfbc12680f2d1"
+            ]
+        ]
+    },
+    {
+        "id": "153dfbc12680f2d1",
+        "type": "api-call-service",
+        "z": "94a7559abc579a34",
+        "name": "Turn off switches",
+        "server": "4e161a78ecbd3dda",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "switch",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "{{ entity_id_switch }}"
+        ],
+        "data": "",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1810,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e2cc3e4035eb82b7",
+        "type": "api-call-service",
+        "z": "94a7559abc579a34",
+        "name": "Update percentages",
+        "server": "4e161a78ecbd3dda",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "number",
+        "service": "set_value",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "{{ entity_id_number }}"
+        ],
+        "data": "{\"value\":{{payload}}}",
+        "dataType": "json",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1820,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "83d0e26c3ea4b1af",
+        "type": "function",
+        "z": "94a7559abc579a34",
+        "name": "Extended Group Status Responses",
+        "func": "// Only process Group Status responses.\nif ( msg.payload[10] === 0xFF && msg.payload[11] === 0xF0) {\n    msg.zone_count = msg.payload[119];\n\n    // Get the status for each zone.\n    // Bit 8-7 = State. 00 = Off, 01 = On, 11 = Turbo\n    // Bit 6-1 = Group Number\n    for (var i = 0; i < msg.zone_count; i++) {\n        var byte = 123 + (i * 22);\n\n        // Set number.zone_X to the retrieved value.\n        var zone_entity = \"zone_\" + ( i );\n        var zone_status = (msg.payload[byte] - i) === 64;\n        var percent = msg.payload[byte + 1];\n        var spill = (msg.payload[byte + 6].toString(16).padStart(2, '0').substring(1,2)) === \"4\";\n\n        /* zone_status == 0 means OFF\n        if ( zone_status == 0 ) {\n            percent = 0\n        }\n        Edit: I am retaining the percentage as I will conditionally hide percentages in the HA frontend. \n            My preference is for percentage value to persist an switches control on and off to replicate the function of the app/controller exactly.\n        */\n        // Create a new message to pass to the set-value service.\n        var NewMsg = { };\n        NewMsg.entity_id_number = \"number.\" + zone_entity;\n        NewMsg.entity_id_switch = \"switch.\" + zone_entity;\n        NewMsg.zoneNumber = i;\n        NewMsg.spill = spill;\n        NewMsg.enable = zone_status; //added to account for switches\n        NewMsg.payload = percent;\n        NewMsg.updateTime = Date.now();\n        node.send(NewMsg);\n    }\n}\nreturn null;\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1440,
+        "y": 480,
+        "wires": [
+            [
+                "492ae41017ba725d",
+                "e2cc3e4035eb82b7",
+                "ed550499e4f0e43c",
+                "73b0c0fbb1fa62b3"
+            ]
+        ]
+    },
+    {
+        "id": "492ae41017ba725d",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "zoneNumber",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "3",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "4",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "5",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "6",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 7,
+        "x": 1590,
+        "y": 240,
+        "wires": [
+            [
+                "cc415ddedad277c0"
+            ],
+            [
+                "1a9a5781d9c32097"
+            ],
+            [
+                "afcd50258ee1f7f1"
+            ],
+            [
+                "b0c26d171009d75e"
+            ],
+            [
+                "80a0da238e093dc0"
+            ],
+            [
+                "85498204ce642487"
+            ],
+            [
+                "f975b4c5367c6cff"
+            ]
+        ]
+    },
+    {
+        "id": "85b10e0e97f2b071",
+        "type": "ha-button",
+        "z": "94a7559abc579a34",
+        "name": "Update Entities",
+        "version": 0,
+        "debugenabled": false,
+        "outputs": 1,
+        "entityConfig": "e781631e2c0e6c8d",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "x": 720,
+        "y": 440,
+        "wires": [
+            [
+                "f965e310a41756f9"
+            ]
+        ]
+    },
+    {
+        "id": "f965e310a41756f9",
+        "type": "change",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[85,85,85,170,144,176,7,31,0,2,255,240,173,140]",
+                "tot": "bin"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 920,
+        "y": 440,
+        "wires": [
+            [
+                "a5d919fe61d8b489"
+            ]
+        ]
+    },
+    {
+        "id": "fa455e841b031a8e",
+        "type": "inject",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "x": 710,
+        "y": 380,
+        "wires": [
+            [
+                "f965e310a41756f9"
+            ]
+        ]
+    },
+    {
+        "id": "cc415ddedad277c0",
+        "type": "ha-binary-sensor",
+        "z": "94a7559abc579a34",
+        "name": "Zone 0 Spill",
+        "entityConfig": "848e4bb58dbc110f",
+        "version": 0,
+        "state": "spill",
+        "stateType": "msg",
+        "attributes": [],
+        "inputOverride": "allow",
+        "outputProperties": [],
+        "x": 1790,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b6915f5b9b477420",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "previousValue",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 280,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "f3a30200fedac2c9",
+        "type": "ha-switch",
+        "z": "94a7559abc579a34",
+        "name": "Zone 1 HA Switch",
+        "version": 0,
+        "debugenabled": false,
+        "inputs": 1,
+        "outputs": 2,
+        "entityConfig": "b7d8ef73aaf0df86",
+        "enableInput": true,
+        "outputOnStateChange": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "switch",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "1",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 440,
+        "wires": [
+            [
+                "d3654227f62b8905"
+            ],
+            [
+                "d3654227f62b8905"
+            ]
+        ]
+    },
+    {
+        "id": "d148e281018253e9",
+        "type": "ha-number",
+        "z": "94a7559abc579a34",
+        "name": "Zone 1 Percentage",
+        "version": 1,
+        "debugenabled": false,
+        "inputs": 0,
+        "outputs": 1,
+        "entityConfig": "e8fed8d30e76ae9d",
+        "mode": "listen",
+        "value": "payload",
+        "valueType": "msg",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "value"
+            },
+            {
+                "property": "previousValue",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "previousValue"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "1",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 400,
+        "wires": [
+            [
+                "dc2605b77fa030d7"
+            ]
+        ]
+    },
+    {
+        "id": "d3654227f62b8905",
+        "type": "change",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "on",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 440,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "dc2605b77fa030d7",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "previousValue",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 400,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "2674eb43fb6c6053",
+        "type": "ha-switch",
+        "z": "94a7559abc579a34",
+        "name": "Zone 2 HA Switch",
+        "version": 0,
+        "debugenabled": false,
+        "inputs": 1,
+        "outputs": 2,
+        "entityConfig": "9b346269bd3f9d22",
+        "enableInput": true,
+        "outputOnStateChange": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "switch",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "2",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "717596c39960b9ee"
+            ],
+            [
+                "717596c39960b9ee"
+            ]
+        ]
+    },
+    {
+        "id": "3265f971f6f354cf",
+        "type": "ha-number",
+        "z": "94a7559abc579a34",
+        "name": "Zone 2 Percentage",
+        "version": 1,
+        "debugenabled": false,
+        "inputs": 0,
+        "outputs": 1,
+        "entityConfig": "f0c57dfe6d5f9f3c",
+        "mode": "listen",
+        "value": "payload",
+        "valueType": "msg",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "value"
+            },
+            {
+                "property": "previousValue",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "previousValue"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "2",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 500,
+        "wires": [
+            [
+                "de54720c301a094d"
+            ]
+        ]
+    },
+    {
+        "id": "717596c39960b9ee",
+        "type": "change",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "on",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 540,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "de54720c301a094d",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "previousValue",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 500,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "987a36766282017a",
+        "type": "ha-switch",
+        "z": "94a7559abc579a34",
+        "name": "Zone 3 HA Switch",
+        "version": 0,
+        "debugenabled": false,
+        "inputs": 1,
+        "outputs": 2,
+        "entityConfig": "46d8a3205ab81e6b",
+        "enableInput": true,
+        "outputOnStateChange": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "switch",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "3",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 640,
+        "wires": [
+            [
+                "48954d0df9c26b37"
+            ],
+            [
+                "48954d0df9c26b37"
+            ]
+        ]
+    },
+    {
+        "id": "2c8f7c7e37a21ff8",
+        "type": "ha-number",
+        "z": "94a7559abc579a34",
+        "name": "Zone 3 Percentage",
+        "version": 1,
+        "debugenabled": false,
+        "inputs": 0,
+        "outputs": 1,
+        "entityConfig": "cf7d6d02f5b743b0",
+        "mode": "listen",
+        "value": "payload",
+        "valueType": "msg",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "value"
+            },
+            {
+                "property": "previousValue",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "previousValue"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "3",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 600,
+        "wires": [
+            [
+                "79186c3dbcb79363"
+            ]
+        ]
+    },
+    {
+        "id": "48954d0df9c26b37",
+        "type": "change",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "on",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 640,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "79186c3dbcb79363",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "previousValue",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 600,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "c6a2c38641e64fb2",
+        "type": "ha-switch",
+        "z": "94a7559abc579a34",
+        "name": "Zone 4 HA Switch",
+        "version": 0,
+        "debugenabled": false,
+        "inputs": 1,
+        "outputs": 2,
+        "entityConfig": "a0e2adc5e82a0c4d",
+        "enableInput": true,
+        "outputOnStateChange": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "switch",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "4",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 740,
+        "wires": [
+            [
+                "8edbb1f0bd2f3c23"
+            ],
+            [
+                "8edbb1f0bd2f3c23"
+            ]
+        ]
+    },
+    {
+        "id": "b52b07ed26c7392a",
+        "type": "ha-number",
+        "z": "94a7559abc579a34",
+        "name": "Zone 4 Percentage",
+        "version": 1,
+        "debugenabled": false,
+        "inputs": 0,
+        "outputs": 1,
+        "entityConfig": "6a46620df28dbc7b",
+        "mode": "listen",
+        "value": "payload",
+        "valueType": "msg",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "value"
+            },
+            {
+                "property": "previousValue",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "previousValue"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "4",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 700,
+        "wires": [
+            [
+                "829ab129d884d977"
+            ]
+        ]
+    },
+    {
+        "id": "8edbb1f0bd2f3c23",
+        "type": "change",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "on",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 740,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "829ab129d884d977",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "previousValue",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 700,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "91a761e463c5906d",
+        "type": "ha-switch",
+        "z": "94a7559abc579a34",
+        "name": "Zone 5 HA Switch",
+        "version": 0,
+        "debugenabled": false,
+        "inputs": 1,
+        "outputs": 2,
+        "entityConfig": "188834d18e18c477",
+        "enableInput": true,
+        "outputOnStateChange": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "switch",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "5",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 840,
+        "wires": [
+            [
+                "aabc71059a26af14"
+            ],
+            [
+                "aabc71059a26af14"
+            ]
+        ]
+    },
+    {
+        "id": "7101cd89eeb93e38",
+        "type": "ha-number",
+        "z": "94a7559abc579a34",
+        "name": "Zone 5 Percentage",
+        "version": 1,
+        "debugenabled": false,
+        "inputs": 0,
+        "outputs": 1,
+        "entityConfig": "1506a927911413d8",
+        "mode": "listen",
+        "value": "payload",
+        "valueType": "msg",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "value"
+            },
+            {
+                "property": "previousValue",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "previousValue"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "5",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 800,
+        "wires": [
+            [
+                "acc6c7534f06f4f8"
+            ]
+        ]
+    },
+    {
+        "id": "aabc71059a26af14",
+        "type": "change",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "on",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 840,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "acc6c7534f06f4f8",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "previousValue",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 800,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "05c9cca8ecb5732c",
+        "type": "ha-switch",
+        "z": "94a7559abc579a34",
+        "name": "Zone 6 HA Switch",
+        "version": 0,
+        "debugenabled": false,
+        "inputs": 1,
+        "outputs": 2,
+        "entityConfig": "8d1ee7b16cd7b930",
+        "enableInput": true,
+        "outputOnStateChange": true,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "switch",
+                "propertyType": "msg",
+                "value": "0",
+                "valueType": "str"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "6",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 940,
+        "wires": [
+            [
+                "84c03a5b1ea90fc9"
+            ],
+            [
+                "84c03a5b1ea90fc9"
+            ]
+        ]
+    },
+    {
+        "id": "33cf6a8f533c4303",
+        "type": "ha-number",
+        "z": "94a7559abc579a34",
+        "name": "Zone 6 Percentage",
+        "version": 1,
+        "debugenabled": false,
+        "inputs": 0,
+        "outputs": 1,
+        "entityConfig": "653d7436b1342ba2",
+        "mode": "listen",
+        "value": "payload",
+        "valueType": "msg",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "value"
+            },
+            {
+                "property": "previousValue",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "previousValue"
+            },
+            {
+                "property": "zone",
+                "propertyType": "msg",
+                "value": "6",
+                "valueType": "num"
+            }
+        ],
+        "x": 170,
+        "y": 900,
+        "wires": [
+            [
+                "7c50e215549ce4b4"
+            ]
+        ]
+    },
+    {
+        "id": "84c03a5b1ea90fc9",
+        "type": "change",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "true",
+                "fromt": "bool",
+                "to": "on",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "false",
+                "fromt": "bool",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 940,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "7c50e215549ce4b4",
+        "type": "switch",
+        "z": "94a7559abc579a34",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "previousValue",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 900,
+        "wires": [
+            [
+                "b50296fcf37fb3d1"
+            ]
+        ]
+    },
+    {
+        "id": "e9d8ce656c0ff20b",
+        "type": "ha-time-entity",
+        "z": "94a7559abc579a34",
+        "name": "Last Updated",
+        "version": 0,
+        "debugenabled": false,
+        "inputs": 1,
+        "outputs": 1,
+        "entityConfig": "32eb7b4b7b2a9e6c",
+        "mode": "set",
+        "value": "updateTime",
+        "valueType": "msg",
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "value"
+            },
+            {
+                "property": "previousValue",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "previousValue"
+            }
+        ],
+        "x": 2110,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "73b0c0fbb1fa62b3",
+        "type": "function",
+        "z": "94a7559abc579a34",
+        "name": "Provide timestamp",
+        "func": "// Create a new Date object\nlet now = new Date();\nvar newMsg = {};\n// Format the time as HH:MM:SS\nlet formattedTime = now.toTimeString().split(' ')[0];\n\n// Set the formatted time as the payload of the message\nnewMsg.updateTime = formattedTime;\n\n// Return the message to be passed to the next node\nreturn newMsg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1810,
+        "y": 480,
+        "wires": [
+            [
+                "e9d8ce656c0ff20b"
+            ]
+        ]
+    },
+    {
+        "id": "e525b874762039dd",
+        "type": "debug",
+        "z": "94a7559abc579a34",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1340,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "27b93de39610f5e5",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 0 Switch",
+        "version": "6",
+        "entityType": "switch",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_0"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "18936c1984238994",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 0 Percentage",
+        "version": "6",
+        "entityType": "number",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_0"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "%"
+            },
+            {
+                "property": "min_value",
+                "value": 5
+            },
+            {
+                "property": "max_value",
+                "value": 100
+            },
+            {
+                "property": "step_value",
+                "value": 5
+            },
+            {
+                "property": "mode",
+                "value": "auto"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "0a46435e48025767",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 1 Spill",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_1_spill"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:alert"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "a45a725dcfa8fe60",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 2 Spill",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_2_spill"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:alert"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "5ab38b376a1e50b7",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 3 Spill",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_3_spill"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:alert"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "5f2561fc16c9eecd",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 4 Spill",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_4_spill"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:alert"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "3ca66b1b7747630c",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 5 Spill",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_5_spill"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:alert"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "94304166eb021eb8",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 6 Spill",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_6_spill"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:alert"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "4e161a78ecbd3dda",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 5,
+        "addon": false,
+        "rejectUnauthorizedCerts": false,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": false,
+        "heartbeatInterval": "30",
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": ": ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "default",
+        "statusTimeFormat": "h:m",
+        "enableGlobalContextStore": false
+    },
+    {
+        "id": "e781631e2c0e6c8d",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Update Entities",
+        "version": "6",
+        "entityType": "button",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Update Entities"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "848e4bb58dbc110f",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 0 Spill",
+        "version": "6",
+        "entityType": "binary_sensor",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_0_spill"
+            },
+            {
+                "property": "icon",
+                "value": "mdi:alert"
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "b7d8ef73aaf0df86",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 1 Switch",
+        "version": "6",
+        "entityType": "switch",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_1"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "e8fed8d30e76ae9d",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 1 Percentage",
+        "version": "6",
+        "entityType": "number",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_1"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "%"
+            },
+            {
+                "property": "min_value",
+                "value": 5
+            },
+            {
+                "property": "max_value",
+                "value": 100
+            },
+            {
+                "property": "step_value",
+                "value": 5
+            },
+            {
+                "property": "mode",
+                "value": "auto"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "9b346269bd3f9d22",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 2 Switch",
+        "version": "6",
+        "entityType": "switch",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_2"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "f0c57dfe6d5f9f3c",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 2 Percentage",
+        "version": "6",
+        "entityType": "number",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_2"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "%"
+            },
+            {
+                "property": "min_value",
+                "value": 5
+            },
+            {
+                "property": "max_value",
+                "value": 100
+            },
+            {
+                "property": "step_value",
+                "value": 5
+            },
+            {
+                "property": "mode",
+                "value": "auto"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "46d8a3205ab81e6b",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 3 Switch",
+        "version": "6",
+        "entityType": "switch",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_3"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "cf7d6d02f5b743b0",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 3 Percentage",
+        "version": "6",
+        "entityType": "number",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_3"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "%"
+            },
+            {
+                "property": "min_value",
+                "value": 5
+            },
+            {
+                "property": "max_value",
+                "value": 100
+            },
+            {
+                "property": "step_value",
+                "value": 5
+            },
+            {
+                "property": "mode",
+                "value": "auto"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "a0e2adc5e82a0c4d",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 4 Switch",
+        "version": "6",
+        "entityType": "switch",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_4"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "6a46620df28dbc7b",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 4 Percentage",
+        "version": "6",
+        "entityType": "number",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_4"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "%"
+            },
+            {
+                "property": "min_value",
+                "value": 5
+            },
+            {
+                "property": "max_value",
+                "value": 100
+            },
+            {
+                "property": "step_value",
+                "value": 5
+            },
+            {
+                "property": "mode",
+                "value": "auto"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "188834d18e18c477",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 5 Switch",
+        "version": "6",
+        "entityType": "switch",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_5"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "1506a927911413d8",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 5 Percentage",
+        "version": "6",
+        "entityType": "number",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_5"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "%"
+            },
+            {
+                "property": "min_value",
+                "value": 5
+            },
+            {
+                "property": "max_value",
+                "value": 100
+            },
+            {
+                "property": "step_value",
+                "value": 5
+            },
+            {
+                "property": "mode",
+                "value": "auto"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "8d1ee7b16cd7b930",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 6 Switch",
+        "version": "6",
+        "entityType": "switch",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_6"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "653d7436b1342ba2",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Zone 6 Percentage",
+        "version": "6",
+        "entityType": "number",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "zone_6"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            },
+            {
+                "property": "entity_category",
+                "value": ""
+            },
+            {
+                "property": "device_class",
+                "value": ""
+            },
+            {
+                "property": "unit_of_measurement",
+                "value": "%"
+            },
+            {
+                "property": "min_value",
+                "value": 5
+            },
+            {
+                "property": "max_value",
+                "value": 100
+            },
+            {
+                "property": "step_value",
+                "value": 5
+            },
+            {
+                "property": "mode",
+                "value": "auto"
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "32eb7b4b7b2a9e6c",
+        "type": "ha-entity-config",
+        "server": "4e161a78ecbd3dda",
+        "deviceConfig": "9497bfaa5f4b8f50",
+        "name": "Last Updated",
+        "version": "6",
+        "entityType": "time",
+        "haConfig": [
+            {
+                "property": "name",
+                "value": "Updated"
+            },
+            {
+                "property": "icon",
+                "value": ""
+            },
+            {
+                "property": "entity_picture",
+                "value": ""
+            }
+        ],
+        "resend": false,
+        "debugEnabled": false
+    },
+    {
+        "id": "9497bfaa5f4b8f50",
+        "type": "ha-device-config",
+        "name": "Zone Touch 3",
+        "hwVersion": "",
+        "manufacturer": "Polyaire",
+        "model": "",
+        "swVersion": ""
+    }
+]

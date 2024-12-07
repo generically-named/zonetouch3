@@ -1,0 +1,9 @@
+set_zone_state:
+  description: Set the on/off state of a specific HVAC zone.
+  fields:
+    zone_id:
+      description: The ID of the HVAC zone to control.
+      example: 1
+    state:
+      description: Desired state of the zone, either 'on' or 'off'.
+      example: "on"
